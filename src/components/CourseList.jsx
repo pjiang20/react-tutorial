@@ -1,9 +1,9 @@
 import Course from './Course';
 import './CourseList.css';
 
-const CourseList = ({courses}) => (
+const CourseList = ({courses, term}) => (
     <div className="course-list">
-        { Object.entries(courses).map(([id, course]) => <Course key={id} course={course}/>) }
+        { Object.entries(courses).filter(([id, course]) => course.term === term).map(([id, course]) => <Course key={id} course={course}/>) }
     </div>
 );
 
