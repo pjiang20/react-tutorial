@@ -2,3 +2,8 @@
     background-color: lemonchiffon;
     color: green;
 }
+
+.has-conflict {
+    background-color: red;
+    color: white;
+}
