@@ -1,9 +1,10 @@
+.has-conflict {
+    opacity: 0.2;
+    transition: 0.2s linear;
+}
+
 .selected {
     background-color: lemonchiffon;
     color: green;
 }
 
-.has-conflict {
-    background-color: red;
-    color: white;
-}

@@ -15,7 +15,7 @@ const parseTimes = (s) => getTimes(s).split('-').map((time) => + time.replace(':
 const detectTimeConflict = (s1, s2) => {
     const [start1, end1] = parseTimes(s1);
     const [start2, end2] = parseTimes(s2);
-    return (start1 < end2 && start2 < end1);
+    return (start1 <= end2 && start2 <= end1);
 }
 
 const detectDayTimeConflict = (s1, s2) => (
@@ -25,7 +25,8 @@ const detectDayTimeConflict = (s1, s2) => (
 );
 
 export const detectConflict = (course1, course2) => (
-    // course1.term === course2.term && detectDayTimeConflict(course1.meets, course2.meets)
-    detectDayTimeConflict(course1.meets, course2.meets)
+    course1 != course2 
+    && course1.term === course2.term 
+    && detectDayTimeConflict(course1.meets, course2.meets)
 );
 
