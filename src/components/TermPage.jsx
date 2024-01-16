@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import CourseList from './CourseList';
+import Modal from './Modal';
+import Schedule from './Schedule';
 
 const terms = ['Fall', 'Winter', 'Spring'];
 
@@ -30,6 +32,7 @@ const TermSelector = ({selection, setSelection}) => (
 const TermPage = ({courses}) => {
     const [selection, setSelection] = useState(() => terms[0]);
     const [selected, setSelected] = useState([]);
+    const [open, setOpen] = useState(false);
 
     const toggleSelected = (item) => setSelected(
         selected.includes(item)
@@ -37,9 +40,21 @@ const TermPage = ({courses}) => {
         : [...selected, item]
     );
 
+    const openModal = () => setOpen(true);
+    const closeModal = () => setOpen(false);
+
     return (
         <div>
-            <TermSelector selection={selection} setSelection={setSelection}/>
+            <div className="d-flex">
+                <TermSelector selection={selection} setSelection={setSelection}/>
+                <button className="ms-auto btn btn-outline-dark" onClick={openModal}>
+                    <i className="bi bi-calendar2-week"></i>
+                </button>
+            </div>
+
+            <Modal open={open} close={closeModal}>
+                <Schedule courses={courses} selected={selected} />
+            </Modal>
             <CourseList courses={courses} term={selection} selected={selected} toggleSelected={toggleSelected}/>
         </div>
     );

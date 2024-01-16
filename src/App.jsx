@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import Banner from './components/Banner';
 import TermPage from './components/TermPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -11,12 +12,10 @@ const Main = () => {
   if (isLoading) return <h1>Loading courses...</h1>;
   if (!data) return <h1>No courses found</h1>;
 
-  const schedule = data;
-
   return (
     <div>
-      <Banner title={schedule.title} />
-      <TermPage courses={schedule.courses} />
+      <Banner title={data.title} />
+      <TermPage courses={data.courses} />
     </div>
   );
 };
