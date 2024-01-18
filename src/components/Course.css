@@ -3,8 +3,12 @@
     transition: 0.2s linear;
 }
 
+.edit-button {
+    transition: none;
+}
+
 .selected {
-    background-color: lemonchiffon;
-    color: green;
+    background-color: #007fff;
+    color: white;
 }
 
