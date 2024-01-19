@@ -4,12 +4,31 @@ import { useNavigate } from "react-router-dom";
 
 const validateUserData = (key, val) => {
     switch (key) {
-        case 'firstName': case 'lastName':
-          return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
-        case 'email':
-          return /^\w+@\w+[.]\w+/.test(val) ? '' : 'must contain name@domain.top-level-domain';
+        case 'title':
+            return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
+        case 'meets':
+            if (val == '') {
+                return '';
+            }
+
+            const regex = /^(?:(?:M|Tu|W|Th|F|Sa|Su){1,7} \d{1,2}:\d{2}-\d{1,2}:\d{2}|)$/  
+            if (regex.test(val)) {
+                const match = val.match(regex)[0];
+                const [days, times] = match.split(' ');
+                const [startTime, endTime] = times.split('-');
+                const [startHour, startMinute] = startTime.split(':').map(Number);
+                const [endHour, endMinute] = endTime.split(':').map(Number);
+
+                return (startHour <= 23 && startMinute <= 59
+                    && endHour <= 23 && endMinute <= 59
+                    && (startHour < endHour || (startHour === endHour && startMinute < endMinute)))
+                ? ''
+                : 'times must be within 0:00-23:59, and start time must be earlier than end time';
+            }
+
+            return 'must contain days and start-end, e.g. MWF 12:00-13:20';
         default: return '';
-      }
+    };
 };
 
 const InputField = ({name, text, state, change}) => (
@@ -44,9 +63,8 @@ const CourseEditForm = ({course}) => {
 
     return (
         <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
-            <InputField name="firstName" text="First Name" state={state} change={change} />
-            <InputField name="lastName" text="Last Name" state={state} change={change} />
-            <InputField name="email" text="Email" state={state} change={change} />
+            <InputField name="title" text="Course Title" state={state} change={change} />
+            <InputField name="meets" text="Course Meeting Times" state={state} change={change} />
             {/* <ButtonBar message={result?.message} /> */}
             <ButtonBar message={"test submit"} />
         </form>
