@@ -5,7 +5,7 @@ import TermPage from './TermPage';
 
 const CourseEditFormForUrl = ({courses}) => {
     const { id } = useParams();
-    return <CourseEditForm course={courses[id]} />;
+    return <CourseEditForm id={id} courses={courses} />;
 };
 
 const Dispatcher = ({data}) => (
