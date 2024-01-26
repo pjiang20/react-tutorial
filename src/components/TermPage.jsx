@@ -2,6 +2,8 @@ import { useState } from 'react';
 import CourseList from './CourseList';
 import Modal from './Modal';
 import Schedule from './Schedule';
+import AuthButton from './AuthButton';
+import { useAuthState } from '../utilities/firebase';
 
 const terms = ['Fall', 'Winter', 'Spring'];
 
@@ -15,14 +17,14 @@ const TermButton = ({term, selection, setSelection}) => (
             autoComplete="off" 
             onChange={() => setSelection(term)} 
         />
-        <label className="btn btn-success mb-1 p-2" htmlFor={term}>
+        <label className="btn btn-primary mb-1 p-2" htmlFor={term}>
             { term }
         </label>
     </div>
 );
 
 const TermSelector = ({selection, setSelection}) => (
-    <div className="btn-group">
+    <div className="me-auto btn-group">
         {
             terms.map(term => <TermButton key={term} term={term} selection={selection} setSelection={setSelection} />)
         }
@@ -33,6 +35,7 @@ const TermPage = ({courses}) => {
     const [selection, setSelection] = useState(() => terms[0]);
     const [selected, setSelected] = useState([]);
     const [open, setOpen] = useState(false);
+    const [user] = useAuthState();
 
     const toggleSelected = (item) => setSelected(
         selected.includes(item)
@@ -47,15 +50,16 @@ const TermPage = ({courses}) => {
         <div>
             <div className="d-flex">
                 <TermSelector selection={selection} setSelection={setSelection}/>
-                <button className="ms-auto btn btn-outline-dark" onClick={openModal}>
+                <button className="btn btn-outline-dark mb-1 p-2" onClick={openModal}>
                     <i className="bi bi-calendar2-week"></i>
                 </button>
+                <AuthButton user={user}/>
             </div>
 
             <Modal open={open} close={closeModal}>
                 <Schedule selected={selected} />
             </Modal>
-            <CourseList courses={courses} term={selection} selected={selected} toggleSelected={toggleSelected}/>
+            <CourseList courses={courses} term={selection} selected={selected} toggleSelected={toggleSelected} user={user}/>
         </div>
     );
 };
