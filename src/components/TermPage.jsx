@@ -31,11 +31,10 @@ const TermSelector = ({selection, setSelection}) => (
     </div>
 );
 
-const TermPage = ({courses}) => {
+const TermPage = ({courses, profile}) => {
     const [selection, setSelection] = useState(() => terms[0]);
     const [selected, setSelected] = useState([]);
     const [open, setOpen] = useState(false);
-    const [user] = useAuthState();
 
     const toggleSelected = (item) => setSelected(
         selected.includes(item)
@@ -53,13 +52,13 @@ const TermPage = ({courses}) => {
                 <button className="btn btn-outline-dark mb-1 p-2" onClick={openModal}>
                     <i className="bi bi-calendar2-week"></i>
                 </button>
-                <AuthButton user={user}/>
+                <AuthButton profile={profile}/>
             </div>
 
             <Modal open={open} close={closeModal}>
                 <Schedule selected={selected} />
             </Modal>
-            <CourseList courses={courses} term={selection} selected={selected} toggleSelected={toggleSelected} user={user}/>
+            <CourseList courses={courses} term={selection} selected={selected} toggleSelected={toggleSelected} profile={profile}/>
         </div>
     );
 };

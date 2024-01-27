@@ -5,11 +5,11 @@ const SignInButton = () => (
 );
 
 const SignOutButton = () => (
-    <button className="btn btn-danger mb-1 p-2" onClick={signOut}>Sign Out</button>
+    <button className="btn btn-danger mb-1 p-2" onClick={signOut}>Sign Out!</button>
 );
 
-const AuthButton = ({user}) => {
-    return user ? <SignOutButton /> : <SignInButton />;
+const AuthButton = ({profile}) => {
+    return profile.user ? <SignOutButton /> : <SignInButton />;
 };
 
 // const activation = ({isActive}) => isActive ? 'active' : 'inactive';
