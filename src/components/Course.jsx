@@ -14,9 +14,10 @@ const Course = ({id, course, selected, toggleSelected, profile}) => {
     const isSelected = selected.includes(course)
     const hasConflict = selected.some((course1) => detectConflict(course, course1));
     return <div 
-        className={`card m-1 p-2 
+        className={`card m-1 p-2   
                     ${isSelected ? 'selected' : ''} 
-                    ${hasConflict ? 'has-conflict' : ''}`} 
+                    ${hasConflict ? 'has-conflict' : ''}`}
+        data-cy="course"  
         onClick={() => hasConflict ? null : toggleSelected(course)}
     >    
         <div className="card-body">

@@ -17,7 +17,7 @@ const TermButton = ({term, selection, setSelection}) => (
             autoComplete="off" 
             onChange={() => setSelection(term)} 
         />
-        <label className="btn btn-primary mb-1 p-2" htmlFor={term}>
+        <label className="btn btn-primary mb-1 p-2" data-cy={term} htmlFor={term}>
             { term }
         </label>
     </div>
